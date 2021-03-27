@@ -1,16 +1,17 @@
 const express = require('express');
 const mongoose = require('mongoose');
+const config = require('config');
 
 const server = express();
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect(process.env.MONGODB_URI || '',{
+mongoose.connect(process.env.MONGODB_URI || config.get('mongoUri'), {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
 })
 
-if(process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production') {
     server.use(express.static('client/build'));
 }
 
