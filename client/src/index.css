@@ -1,13 +1,52 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@import "~materialize-css/dist/css/materialize.min.css";
+
+button, a{
+    text-decoration: none;
+    cursor: pointer;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+.dflex-sb {
+    display: flex;
+    justify-content: space-between;
+}
+
+.container-card {
+    max-width: 560px;
+    margin: 0 auto;
+}
+
+input.yellow-input {
+    border-bottom: 1px solid #fff !important;
+    box-shadow: 0 1px 0 0 #fff !important;
+}
+
+input.yellow-input + label {
+    color: #fff !important;
+}
+
+input.yellow-input:focus + label {
+    color: #fff !important;
+}
+
+input.yellow-input:focus {
+    border-bottom: 1px solid #ffeb3b !important;
+    box-shadow: 0 1px 0 0 #ffeb3b !important;
+}
+
+.txt-al-center {
+    text-align: center;
+}
+
+.active .collapsible-body {
+    display: flex;
+    align-items: center;
+}
+
+.dflex-center {
+    display: flex;
+    justify-content: center;
+}
+
+.pad-top-2rem {
+    padding-top: 2rem;
 }
