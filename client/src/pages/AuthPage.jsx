@@ -25,7 +25,7 @@ export const AuthPage = (props) => {
 
     const registerHandler = async () => {
         try {
-            const data = await req('/api/auth/register', 'POST', { ...form });
+            const data = await req('/auth/register', 'POST', { ...form });
             message(data.message);
 
             history.push('/login');
@@ -34,7 +34,7 @@ export const AuthPage = (props) => {
 
     const loginHandler = async () => {
         try {
-            const data = await req('/api/auth/login', 'POST', { email: form.email, password: form.password });
+            const data = await req('/auth/login', 'POST', { email: form.email, password: form.password });
             auth.login(data.token, data.userId, data.email);
         } catch (e) { };
     };

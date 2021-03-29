@@ -1,19 +1,24 @@
 import React from "react";
 import { Redirect, Route, Switch } from "react-router-dom";
 import { AuthPage } from "./pages/AuthPage";
-import { ListProject } from "./pages/ListProject";
+import { Calculator } from "./pages/Calculator";
+import { ListProjects } from "./pages/ListProjects";
 
 export const useRoutes = (isAuth) => {
     if (!isAuth) {
         return (
-            <div className='container-card'>
-                <Switch>
-                    <Route to='/listProject' exact >
-                        <ListProject />
-                    </Route>
-                    <Redirect to='/listProject' />
-                </Switch>
-            </div>
+            <Switch>
+                {/* <Route to='/listProjects' exact >
+                        <ListProjects />
+                    </Route> */}
+                <Route to='/listProjects' exact >
+                    <Calculator />
+                </Route>
+                <Route to='/calculator' exact >
+                    <Calculator />
+                </Route>
+                <Redirect to='/listProjects' />
+            </Switch>
         );
     };
 

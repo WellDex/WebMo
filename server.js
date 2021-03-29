@@ -5,7 +5,7 @@ const config = require('config');
 const server = express();
 const PORT = process.env.PORT || 5000;
 
-mongoose.connect(process.env.MONGODB_URI || config.get('mongoUri'), {
+mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://admin:admin@cluster0.69iil.mongodb.net/webMo?retryWrites=true&w=majority", {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,

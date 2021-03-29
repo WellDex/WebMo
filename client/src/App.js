@@ -12,17 +12,15 @@ export const App = () => {
     const isAuth = !!token;
     const routes = useRoutes(isAuth, email);
 
-    // if (!ready) {
-    //     return <Preloader />;
-    // }
+    if (!ready) {
+        return <Preloader />;
+    }
 
     return (
         <AuthContext.Provider value={{ token, userId, login, logout, isAuth, email }}>
             <BrowserRouter>
                 {!isAuth && <Header />}
-                <div className='container'>
-                    {routes}
-                </div>
+                {routes}
             </BrowserRouter>
         </AuthContext.Provider>
     );

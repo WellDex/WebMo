@@ -11,7 +11,7 @@ button, a{
 }
 
 .container-card {
-    max-width: 560px;
+    max-width: 700px;
     margin: 0 auto;
 }
 
@@ -55,10 +55,34 @@ input.yellow-input:focus {
     padding-left: 10px;
 }
 
+.mg-bottom {
+    margin-bottom: 1rem;
+}
+.mg-right {
+    margin-right: 1rem;
+}
+
+.mg-top {
+    margin-top: 1rem;
+}
+
 .helpers {
     color: #e7a1a8;
     letter-spacing: 6px;
     font-size: 26px;
     font-style: italic;
     font-weight: bold;
+}
+
+.dflex-sb .wrap {
+    flex-wrap: wrap;
+}
+
+select{
+    display: block;
+    height: auto !important;
+}
+
+.gap{
+    gap: 1rem;
 }
