@@ -98,13 +98,15 @@ export const ListProjects = (props) => {
     };
 
     return (
-        <>
-            {projects.length > 0
-                ? <ul className='collapsible'>
-                    {/* {projectMap} */}
-                </ul>
-                : <p className='dflex-center helpers'>У вас нет проектов.</p>
-            }
-        </>
+        <div className='container'>
+            <div className='container-card'>
+                {projects.length > 0
+                    ? <ul className='collapsible'>
+                        {/* {projectMap} */}
+                    </ul>
+                    : <p className='dflex-center helpers'>У вас нет проектов.</p>
+                }
+            </div>
+        </div>
     );
 };

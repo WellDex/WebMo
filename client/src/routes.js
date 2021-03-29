@@ -5,19 +5,20 @@ import { Calculator } from "./pages/Calculator";
 import { ListProjects } from "./pages/ListProjects";
 
 export const useRoutes = (isAuth) => {
-    if (isAuth) {
+    if (!isAuth) {
         return (
-            <div className='container-card'>
-                <Switch>
-                    <Route to='/listProjects' exact >
+            <Switch>
+                {/* <Route to='/listProjects' exact >
                         <ListProjects />
-                    </Route>
-                    <Route to='/calculator' exact >
-                        <Calculator />
-                    </Route>
-                    <Redirect to='/listProjects' />
-                </Switch>
-            </div>
+                    </Route> */}
+                <Route to='/listProjects' exact >
+                    <Calculator />
+                </Route>
+                <Route to='/calculator' exact >
+                    <Calculator />
+                </Route>
+                <Redirect to='/listProjects' />
+            </Switch>
         );
     };
 
