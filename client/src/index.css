@@ -50,3 +50,15 @@ input.yellow-input:focus {
 .pad-top-2rem {
     padding-top: 2rem;
 }
+
+.pd-l-10 {
+    padding-left: 10px;
+}
+
+.helpers {
+    color: #e7a1a8;
+    letter-spacing: 6px;
+    font-size: 26px;
+    font-style: italic;
+    font-weight: bold;
+}
