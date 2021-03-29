@@ -4,7 +4,7 @@ import { AuthContext } from '../context/AuthContext';
 import { useRequest } from '../hooks/hookReq';
 import { useMessage } from '../hooks/messageHook';
 
-export const ListProject = (props) => {
+export const ListProjects = (props) => {
     const { token } = useContext(AuthContext);
     const message = useMessage();
     const { loading, error, req, clearError } = useRequest();
