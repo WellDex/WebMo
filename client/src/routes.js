@@ -8,15 +8,8 @@ export const useRoutes = (isAuth) => {
     if (!isAuth) {
         return (
             <Switch>
-                {/* <Route to='/listProjects' exact >
-                        <ListProjects />
-                    </Route> */}
-                <Route to='/listProjects' exact >
-                    <Calculator />
-                </Route>
-                <Route to='/calculator' exact >
-                    <Calculator />
-                </Route>
+                <Route path='/listProjects' component={() => (<ListProjects/>)}/>
+                <Route path='/calculator' component={() => (<Calculator/>)}/>
                 <Redirect to='/listProjects' />
             </Switch>
         );
