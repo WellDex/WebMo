@@ -14,6 +14,7 @@ mongoose.connect(process.env.MONGODB_URI || "mongodb+srv://admin:admin@cluster0.
 server.use(express.json({ extended: true }));
 
 server.use('/auth', require('./routh/authRoutes'));
+server.use('/project', require('./routh/projectRoutes'));
 
 if (process.env.NODE_ENV === 'production') {
     server.use(express.static('client/build'));
