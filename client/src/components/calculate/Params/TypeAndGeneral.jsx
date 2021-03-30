@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 
-export const TypeAndGeneral = (props) => {
+export const TypeAndGeneral = ({ attributes, inputValueHandler }) => {
 
     return (
         <Form>
@@ -18,13 +18,13 @@ export const TypeAndGeneral = (props) => {
             <Form.Label>Общие параметры:</Form.Label>
             <Form.Group>
                 <Form.Label>A:</Form.Label>
-                <Form.Control type="number" step={0.1}/>
+                <Form.Control onChange={inputValueHandler} value={attributes.A} type="number" step={0.1} name="A"/>
                 <Form.Label>B:</Form.Label>
-                <Form.Control type="number" step={0.1}/>
+                <Form.Control onChange={inputValueHandler} value={attributes.B} type="number" step={0.1} name="B"/>
                 <Form.Label>P1:</Form.Label>
-                <Form.Control type="number" step={0.1}/>
+                <Form.Control onChange={inputValueHandler} value={attributes.P1} type="number" step={0.1} name="P1"/>
                 <Form.Label>P2:</Form.Label>
-                <Form.Control type="number" step={0.1}/>
+                <Form.Control onChange={inputValueHandler} value={attributes.P2} type="number" step={0.1} name="P2"/>
             </Form.Group>
         </Form>
     );
