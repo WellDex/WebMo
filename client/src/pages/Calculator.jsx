@@ -1,11 +1,17 @@
-import React, { useState } from 'react';
-import { Link, Redirect, Route, Switch, useRouteMatch } from 'react-router-dom';
-import { Equation } from '../components/calculate/Equation';
+import React, { useState, useEffect, useContext } from 'react';
+import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
 import { Params } from '../components/calculate/Params';
 import { Size } from '../components/calculate/Size';
+import { useRequest } from "../hooks//hookReq";
+import { AuthContext } from "../context/AuthContext";
+import { useMessage } from "../hooks/messageHook";
+import { ResultModal } from '../components/modal/ResultModal';
 
 export const Calculator = (props) => {
-
+    const auth = useContext(AuthContext);
+    const message = useMessage();
+    const { error, req, clearError } = useRequest();
+    const [showModal, setShowModal] = useState(false);
     const [params, setParams] = useState({
         projectName: '',
         description: '',
@@ -26,39 +32,56 @@ export const Calculator = (props) => {
         PEFF: 1.36
     })
 
-    const {path, url} = useRouteMatch()
+    const { path, url } = useRouteMatch()
 
     const inputValueHandler = (e) => {
         const name = e.target.name
         const value = e.target.value
-        
-        if(e.target.type === 'select-one'){
-            setParams(params => ({...params, [name]: +value}))
+
+        if (e.target.type === 'select-one') {
+            setParams(params => ({ ...params, [name]: +value }))
         }
 
-        setParams(params => ({...params, [name]: value}))
+        setParams(params => ({ ...params, [name]: value }))
+    }
+
+    const changeShowModal = () => setShowModal(!showModal);
+
+    useEffect(() => {
+        message(error)
+        clearError()
+    }, [error, message, clearError])
+
+    const saveResult = async (e) => {
+        try {
+            const data = await req('/project/create', 'POST', {/*parametru*/ }, { Authorization: `Baerer ${auth.token}` })
+        } catch (e) { }
     }
 
     return (
-        <React.Fragment>
+        <div clasName='pos-rel'>
             <nav className="nav-extended dflex-center">
                 <div className="nav-content">
                     <ul className="tabs tabs-transparent">
                         <li className="tab"><Link to={`${url}/params`} className="active">Параметры модели</Link></li>
                         <li className="tab"><Link to={`${url}/size`}>Размер</Link></li>
-                        <li className="tab"><Link to={`${url}/equation`}>Уравнение</Link></li>
                     </ul>
                 </div>
             </nav>
             <div className='container'>
                 <div className='container-card'>
                     <Switch>
-                        <Route path={`${path}/params`} exact render={() => (<Params attributes={params} inputValueHandler={inputValueHandler}/>)}/>
-                        <Route path={`${path}/size`} render={() => (<Size />)}/>
-                        <Route path={`${path}/equation`} render={() => (<Equation />)}/>
+                        <Route path={`${path}/params`} exact render={() => (<Params attributes={params} inputValueHandler={inputValueHandler} />)} />
+                        <Route path={`${path}/size`} render={() => (<Size />)} />
                     </Switch>
                 </div>
             </div>
-        </React.Fragment>
+            <div className='txt-al-center mg-top mg-bottom'>
+                <a className="waves-effect waves-light btn-small" onClick={changeShowModal}>Рассчитать проект</a>
+            </div>
+            {
+                showModal && <ResultModal changeShowModal={changeShowModal} saveResult={saveResult} />
+            }
+        </div>
     );
 };
