@@ -69,6 +69,7 @@ export const ListProjects = (props) => {
                                 <th></th>
                                 <th></th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
 
