@@ -111,3 +111,7 @@ select{
 .pos-rel {
     position: relative;
 }
+
+.brand-logo{
+    cursor: default !important;
+}
