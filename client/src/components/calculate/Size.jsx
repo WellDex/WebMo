@@ -10,7 +10,7 @@ export const Size = (props) => {
             <CountFunction />
             <ResultSize />
             <div className='txt-al-center mg-top'>
-                <a className="waves-effect waves-light btn-small">Рассчитать</a>
+                <a className="waves-effect waves-light btn-small">Рассчитать размер</a>
             </div>
         </div>
     );
