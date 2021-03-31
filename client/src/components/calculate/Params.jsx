@@ -21,11 +21,6 @@ export const Params = ({ params, projectData, constants, valiidationError, input
             inputParamsValueHandler={inputParamsValueHandler} 
             attributes={params} 
             />
-            
-            <div className='txt-al-center mg-top'>
-                <a className="waves-effect waves-light btn-small mg-right">Рассчитать</a>
-                <a className="waves-effect waves-light btn-small">Сохранить</a>
-            </div>
         </div>
     );
 };

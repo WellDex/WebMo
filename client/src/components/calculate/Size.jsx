@@ -10,7 +10,7 @@ export const Size = ({ projectFormulaData }) => {
             <CountFunction projectFormulaData={projectFormulaData}/>
             <ResultSize projectFormulaData={projectFormulaData}/>
             <div className='txt-al-center mg-top'>
-                <a className="waves-effect waves-light btn-small">Рассчитать</a>
+                <a className="waves-effect waves-light btn-small">Рассчитать размер</a>
             </div>
         </div>
     );

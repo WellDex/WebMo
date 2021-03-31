@@ -1,5 +1,7 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
+import { Redirect } from 'react-router';
 import { Preloader } from '../components/common/Preloader';
+import { Project } from '../components/listProjects/Project';
 import { AuthContext } from '../context/AuthContext';
 import { useRequest } from '../hooks/hookReq';
 import { useMessage } from '../hooks/messageHook';
@@ -8,12 +10,11 @@ export const ListProjects = (props) => {
     const { token } = useContext(AuthContext);
     const message = useMessage();
     const { loading, error, req, clearError } = useRequest();
-    const [form, setForm] = useState({ id: null, name: "", description: "", isCondition: false, dateEx: null });
     const [projects, setProjects] = useState([]);
 
     const getProjects = useCallback(async () => {
         try {
-            const data = await req('/progect/', 'GET', null, {
+            const data = await req('/progect/all', 'GET', null, {
                 Authorization: `Bearer ${token}`,
             });
 
@@ -30,45 +31,7 @@ export const ListProjects = (props) => {
         clearError();
     }, [error, message, clearError]);
 
-    const changeHandler = (e, id) => {
-        const project = projects.find(el => el._id === id);
-
-        if (e.target.name === 'name') {
-            setForm({
-                ...form,
-                id: project._id,
-                name: e.target.value,
-                description: project.description,
-                isCondition: project.isCondition,
-                dateEx: project.dateEx
-            });
-        } else {
-            setForm({
-                ...form,
-                id: project._id,
-                name: project.name,
-                description: e.target.value,
-                isCondition: project.isCondition,
-                dateEx: project.dateEx
-            });
-        };
-    };
-
-    const updateProject = () => {
-        updateProjectHandler().then(() => {
-            getProjects();
-        });
-    };
-
-    const updateProjectHandler = async () => {
-        try {
-            const data = await req('/progect/update', 'POST', { ...form }, {
-                Authorization: `Bearer ${token}`
-            });
-
-            message(data.message);
-        } catch (e) { };
-    };
+    const openProject = (id) => <Redirect to={`/calculator/${id}`} />;
 
     const deleteProjectHandler = async (id) => {
         try {
@@ -82,16 +45,15 @@ export const ListProjects = (props) => {
         } catch (e) { };
     };
 
-    // const projectMap = projects.map(project =>
-    //     <Project
-    //         key={project._id}
-    //         project={project}
-    //         changeHandler={changeHandler}
-    //         updateProject={updateProject}
-    //         deleteProjectHandler={deleteProjectHandler}
-    //         loading={loading}
-    //     />
-    // );
+    const projectMap = projects.map(project =>
+        <Project
+            key={project.id}
+            project={project}
+            openProject={openProject}
+            deleteProjectHandler={deleteProjectHandler}
+            loading={loading}
+        />
+    );
 
     if (loading) {
         return <Preloader />;
@@ -101,9 +63,20 @@ export const ListProjects = (props) => {
         <div className='container'>
             <div className='container-card'>
                 {projects.length > 0
-                    ? <ul className='collapsible'>
-                        {/* {projectMap} */}
-                    </ul>
+                    ? <table>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {projectMap}
+                        </tbody>
+                    </table>
                     : <p className='dflex-center helpers'>У вас нет проектов.</p>
                 }
             </div>
