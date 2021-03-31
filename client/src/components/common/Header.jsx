@@ -16,7 +16,7 @@ export const Header = (props) => {
         <header>
             <nav>
                 <div className="nav-wrapper pd-l-10">
-                    <a href="#" className="brand-logo center">WebMo</a>
+                    <a className="brand-logo center" disabled={true} >WebMo</a>
                     <ul id="nav-mobile" className="left hide-on-med-and-down">
                         <li><NavLink to="/calculator/params">Калькулятор</NavLink></li>
                         <li><NavLink to="/listProject">Список проектов</NavLink></li>

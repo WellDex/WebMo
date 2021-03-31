@@ -22,7 +22,7 @@ router.post(
                 return res.status(400).json({
                     errors: errors.array(),
                     message: 'Некорректные данные при создании проекта'
-                })
+                });
             }
 
             const { name } = req.body;
@@ -40,7 +40,7 @@ router.post(
             res.status(201).json({ message: 'Проект создан', project });
 
         } catch (e) {
-            res.status(500).json({ message: 'Server error ' + e })
+            res.status(500).json({ message: 'Server error ' + e });
         }
     }
 )
@@ -48,13 +48,18 @@ router.post(
 //  /project/
 router.get('/', auth, async (req, res) => {
     try {
-        const id = req.body.id || req.user.userId
-        const projects = await Project.find({ owner: id })
+        const id = req.body.id || req.user.userId;
+        const projects = await Project.find({ owner: id });
 
-        res.json(projects)
+        const newProject = projects.map(el => {
+            id: el._id
+            name: el.projectName
+            createTime: el.createTime
+        });
 
+        res.json(newProject);
     } catch (e) {
-        res.status(500).json({ message: 'Server error ' + e })
+        res.status(500).json({ message: 'Server error ' + e });
     }
 })
 
@@ -67,7 +72,7 @@ router.post(
     ],
     async (req, res) => {
         try {
-            const errors = validationResult(req)
+            const errors = validationResult(req);
 
             if (!errors.isEmpty()) {
                 return res.status(400).json({
@@ -76,7 +81,7 @@ router.post(
                 })
             }
 
-            const project = await Project.findById(id)
+            const project = await Project.findById(id);
 
             project.projectName = req.body.projectName;
             project.description = req.body.description;
@@ -151,7 +156,7 @@ router.delete(
                 return res.status(400).json({
                     errors: errors.array(),
                     message: 'Некорректные данные todo'
-                })
+                });
             }
 
             const { id } = req.body;
