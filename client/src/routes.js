@@ -9,7 +9,8 @@ export const useRoutes = (isAuth) => {
         return (
             <Switch>
                 <Route path='/listProjects' component={() => (<ListProjects/>)}/>
-                <Route path='/calculator' component={() => (<Calculator/>)}/>
+                <Route exact path='/calculator' component={() => (<Calculator/>)}/>
+                <Route path='/calculator/:id?' render={(props) => (<Calculator {...props}/>)}/>
                 <Redirect to='/listProjects' />
             </Switch>
         );

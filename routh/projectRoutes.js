@@ -46,7 +46,32 @@ router.post(
 )
 
 //  /project/
-router.get('/', auth, async (req, res) => {
+router.get('/',
+    auth,
+    [
+        check('id', 'Отсутствует id проекта').isLength({ min: 1 }),
+    ],
+    async (req, res) => {
+        try {
+            const errors = validationResult(req);
+
+            if (!errors.isEmpty()) {
+                return res.status(400).json({
+                    errors: errors.array(),
+                    message: 'Некорректные данные проекта'
+                })
+            }
+
+            const project = await Project.findById(id);
+
+            res.json(project);
+        } catch (e) {
+            res.status(500).json({ message: 'Server error ' + e });
+        }
+    })
+
+//  /project/all
+router.get('/all', auth, async (req, res) => {
     try {
         const id = req.body.id || req.user.userId;
         const projects = await Project.find({ owner: id });
