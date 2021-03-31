@@ -15,6 +15,8 @@ export const Calculator = (props) => {
     const { loading, error, req, clearError } = useRequest();
     const [showModal, setShowModal] = useState(false);
 
+    const [valiidationError, setValidationError] = useState(false)
+
     let paramsForState = {};
 
     const getProject = async (id) => {
@@ -38,20 +40,50 @@ export const Calculator = (props) => {
             B: 1.5,
             P1: 1.00,
             P2: 0.33,
-            CDI: null,
-            CPLX: 0.63,
-            PDIF: 0.75,
-            PERS: 1.55,
-            PREX: 1.35,
-            FCIL: 1.36,
-            SCED: 1.35,
-            RUSE: 1.00,
-            TEAM: 1.45,
-            PEFF: 1.36
+            params: {
+                CPLX: 0.63,
+                PDIF: 0.75,
+                PERS: 1.55,
+                PREX: 1.35,
+                FCIL: 1.36,
+                SCED: 1.35,
+                RUSE: 1.00,
+                TEAM: 1.45,
+                PEFF: 1.36,
+            },
+            size: {
+                ModelSize: null,
+                LanguageCoding: null,
+                VnytrLogOb: { low: 0, middle: 0, high: 0, count: 0 },
+                VneshInterface: { low: 0, middle: 0, high: 0, count: 0 },
+                VneshVvod: { low: 0, middle: 0, high: 0, count: 0 },
+                VneshVuvod: { low: 0, middle: 0, high: 0, count: 0 },
+                VneshZapros: { low: 0, middle: 0, high: 0, count: 0 },
+            },
+            result: {
+                common: {
+                    CDI: null,
+                },
+                size: {
+                    sizeWebObject: 0,
+                    countStringCode: 0
+                },
+                other: {
+                    Tn: 0,
+                    Tmin: 0,
+                    Tmax: 0,
+                    Dn: 0,
+                    Dmin: 0,
+                    Dmax: 0,
+                    Cn: 0
+                }
+            }
         }
     }
 
-    const [params, setParams] = useState(paramsForState)
+    const [state, setState] = useState(paramsForState)
+
+    const { path, url } = useRouteMatch()
 
     useEffect(() => {
         message(error);
@@ -60,9 +92,30 @@ export const Calculator = (props) => {
 
     const { path, url } = useRouteMatch()
 
-    const inputValueHandler = (e) => {
+    const inputProjectDataValueHandler = (e) => {
         const name = e.target.name
         const value = e.target.value
+
+        setProjectData(projectData => {
+            if (value.length === 0 && name === 'projectName') {
+                setValidationError(true)
+                return { ...projectData, [name]: value }
+            } else if (value.length !== 0 && name === 'projectName') {
+                setValidationError(false)
+                return { ...projectData, [name]: value }
+            }
+            return { ...projectData, [name]: value }
+        })
+    }
+
+    const inputParamsValueHandler = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+
+        if (e.target.type === 'select-one') {
+            setParams(params => ({ ...params, [name]: +value }))
+        }
+        setConstants(params => ({ ...params, [name]: +value }))
 
         if (e.target.type === 'select-one') {
             setParams(params => ({ ...params, [name]: +value }))
@@ -80,7 +133,7 @@ export const Calculator = (props) => {
 
     const saveResult = async (e) => {
         try {
-            const data = await req('/project/create', 'POST', {/*parametru*/ }, { Authorization: `Baerer ${auth.token}` })
+            await req('/project/create', 'POST', {/*parametru*/ }, { Authorization: `Baerer ${auth.token}` })
         } catch (e) { }
     }
 
@@ -111,8 +164,19 @@ export const Calculator = (props) => {
             <div className='container'>
                 <div className='container-card'>
                     <Switch>
-                        <Route path={`${path}/params`} exact render={() => (<Params attributes={params} inputValueHandler={inputValueHandler} />)} />
-                        <Route path={`${path}/size`} render={() => (<Size />)} />
+                        <Route
+                            path={`${path}/params`} exact
+                            render={() => (
+                                <Params
+                                    params={params}
+                                    projectData={projectData}
+                                    constants={constants}
+                                    valiidationError={valiidationError}
+                                    inputProjectDataValueHandler={inputProjectDataValueHandler}
+                                    inputParamsValueHandler={inputParamsValueHandler} />)}
+                        />
+
+                        <Route path={`${path}/size`} render={() => (<Size projectFormulaData={projectFormulaData} />)} />
                     </Switch>
                 </div>
             </div>

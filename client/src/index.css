@@ -87,6 +87,13 @@ select{
     gap: 1rem;
 }
 
+.error-input-name{
+    padding-left: 3px;
+    color: red;
+    font-weight: bold;
+    font-size: 14px;
+}
+
 .shadow{
     position: fixed;
     top:0;
