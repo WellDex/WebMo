@@ -14,7 +14,7 @@ export const ListProjects = (props) => {
 
     const getProjects = useCallback(async () => {
         try {
-            const data = await req('/progect/', 'GET', null, {
+            const data = await req('/progect/all', 'GET', null, {
                 Authorization: `Bearer ${token}`,
             });
 
