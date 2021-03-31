@@ -1,7 +1,8 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
 
-export const CountFunction = (props) => {
+export const CountFunction = ({ projectFormulaData }) => {
+    const { VnytrLogOb, VneshInterface, VneshVvod, VneshVuvod, VneshZapros } = projectFormulaData
     return (
         <Table striped bordered hover size="sm">
             <thead>
@@ -19,35 +20,35 @@ export const CountFunction = (props) => {
                     <td><input id="first_name" type="text" class="validate" /></td>
                     <td><input id="first_name" type="text" class="validate" /></td>
                     <td><input id="first_name" type="text" class="validate" /></td>
-                    <td><input id="first_name" type="text" class="validate" /></td>
+                    <td><input value={VnytrLogOb.count} id="first_name" type="text" class="validate" /></td>
                 </tr>
                 <tr>
                     <td>Внешн. интерф.</td>
                     <td><input id="first_name" type="text" class="validate" /></td>
                     <td><input id="first_name" type="text" class="validate" /></td>
                     <td><input id="first_name" type="text" class="validate" /></td>
-                    <td><input id="first_name" type="text" class="validate" /></td>
+                    <td><input value={VneshInterface.count} id="first_name" type="text" class="validate" /></td>
                 </tr>
                 <tr>
                     <td>Внешний ввод</td>
                     <td><input id="first_name" type="text" class="validate" /></td>
                     <td><input id="first_name" type="text" class="validate" /></td>
                     <td><input id="first_name" type="text" class="validate" /></td>
-                    <td><input id="first_name" type="text" class="validate" /></td>
+                    <td><input value={VneshVvod.count} id="first_name" type="text" class="validate" /></td>
                 </tr>
                 <tr>
                     <td>Внешний вывод</td>
                     <td><input id="first_name" type="text" class="validate" /></td>
                     <td><input id="first_name" type="text" class="validate" /></td>
                     <td><input id="first_name" type="text" class="validate" /></td>
-                    <td><input id="first_name" type="text" class="validate" /></td>
+                    <td><input value={VneshVuvod.count} id="first_name" type="text" class="validate" /></td>
                 </tr>
                 <tr>
                     <td>Внешний запрос</td>
                     <td><input id="first_name" type="text" class="validate" /></td>
                     <td><input id="first_name" type="text" class="validate" /></td>
                     <td><input id="first_name" type="text" class="validate" /></td>
-                    <td><input id="first_name" type="text" class="validate" /></td>
+                    <td><input value={VneshZapros.count} id="first_name" type="text" class="validate" /></td>
                 </tr>
             </tbody>
         </Table>
