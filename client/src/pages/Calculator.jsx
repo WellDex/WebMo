@@ -90,21 +90,37 @@ export const Calculator = (props) => {
         clearError();
     }, [error, message, clearError]);
 
-    const { path, url } = useRouteMatch()
-
     const inputProjectDataValueHandler = (e) => {
         const name = e.target.name
         const value = e.target.value
 
-        setProjectData(projectData => {
+        setState(state => {
             if (value.length === 0 && name === 'projectName') {
                 setValidationError(true)
-                return { ...projectData, [name]: value }
+                return { ...state, [name]: value }
             } else if (value.length !== 0 && name === 'projectName') {
                 setValidationError(false)
-                return { ...projectData, [name]: value }
+                return { ...state, [name]: value }
             }
-            return { ...projectData, [name]: value }
+            return { ...state, [name]: value }
+        })
+    }
+
+    const inputConstantsValueHandler = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+
+        setState(state => {
+            return { ...state, [name]: +value }
+        })
+    }
+
+    const inputAtributesValueHandler = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+
+        setState(state => {
+            return { ...state, params: { ...state.params, [name]: +value } }
         })
     }
 
@@ -113,15 +129,15 @@ export const Calculator = (props) => {
         const value = e.target.value
 
         if (e.target.type === 'select-one') {
-            setParams(params => ({ ...params, [name]: +value }))
+            setState(params => ({ ...params, [name]: +value }))
         }
-        setConstants(params => ({ ...params, [name]: +value }))
+        setState(params => ({ ...params, [name]: +value }))
 
         if (e.target.type === 'select-one') {
-            setParams(params => ({ ...params, [name]: +value }))
+            setState(params => ({ ...params, [name]: +value }))
         }
 
-        setParams(params => ({ ...params, [name]: value }))
+        setState(params => ({ ...params, [name]: value }))
     }
 
     const changeShowModal = () => setShowModal(!showModal);
@@ -130,6 +146,10 @@ export const Calculator = (props) => {
         message(error)
         clearError()
     }, [error, message, clearError])
+
+    useEffect(() => {
+        console.log(state)
+    }, [state])
 
     const saveResult = async (e) => {
         try {
@@ -168,15 +188,15 @@ export const Calculator = (props) => {
                             path={`${path}/params`} exact
                             render={() => (
                                 <Params
-                                    params={params}
-                                    projectData={projectData}
-                                    constants={constants}
+                                    state={state}
                                     valiidationError={valiidationError}
                                     inputProjectDataValueHandler={inputProjectDataValueHandler}
+                                    inputConstantsValueHandler={inputConstantsValueHandler}
+                                    inputAtributesValueHandler={inputAtributesValueHandler}
                                     inputParamsValueHandler={inputParamsValueHandler} />)}
                         />
 
-                        <Route path={`${path}/size`} render={() => (<Size projectFormulaData={projectFormulaData} />)} />
+                        <Route path={`${path}/size`} render={() => (<Size state={state} />)} />
                     </Switch>
                 </div>
             </div>
