@@ -147,9 +147,28 @@ export const Calculator = (props) => {
         clearError()
     }, [error, message, clearError])
 
-    useEffect(() => {
-        console.log(state)
-    }, [state])
+    const calculateFormula = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+
+        switch (name) {
+            case 'Tn': {
+
+            }
+            case 'Tmin': { }
+            case 'Tmax': { }
+            case 'Dn': {
+                const res = state.B *
+                    setState(state => {
+                        return { ...state, params: { ...state.params, [name]: +value } }
+                    })
+            }
+            case 'Dmin': { }
+            case 'Dmax': { }
+            case 'Cn': { }
+            case 'CDI': { }
+        }
+    }
 
     const saveResult = async (e) => {
         try {
