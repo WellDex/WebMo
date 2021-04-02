@@ -29,8 +29,8 @@ export const Calculator = (props) => {
         } catch (e) { };
     }
 
-    if (!!projectId && typeof projectId === Number) {
-        getProject(projectId);
+    if (!!projectId) {
+        getProject(+projectId);
     } else {
         paramsForState = {
             projectName: '',
@@ -153,18 +153,18 @@ export const Calculator = (props) => {
 
     const saveResult = async (e) => {
         try {
-            await req('/project/create', 'POST', {/*parametru*/ }, { Authorization: `Baerer ${auth.token}` })
-        } catch (e) { }
+            await req('/project/create', 'POST', { ...state }, { Authorization: `Baerer ${auth.token}` })
+        } catch (e) { };
     }
 
     const updateProject = async () => {
         try {
-            const data = await req('/project/update', 'POST', {/*parametru*/ }, {
+            const data = await req('/project/update', 'POST', { ...state }, {
                 Authorization: `Bearer ${auth.token}`
             })
 
             message(data.message)
-        } catch (e) { }
+        } catch (e) { };
     }
 
     if (loading) {
