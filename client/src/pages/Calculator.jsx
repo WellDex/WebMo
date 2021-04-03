@@ -29,7 +29,7 @@ export const Calculator = (props) => {
         } catch (e) { };
     }
 
-    if (!!projectId) {
+    if (!!projectId && false) {
         getProject(+projectId);
     } else {
         paramsForState = {
@@ -78,6 +78,7 @@ export const Calculator = (props) => {
     }
 
     const [state, setState] = useState(paramsForState)
+    const [countValue, setCountValue] = useState(0)
 
     const { path, url } = useRouteMatch()
 
@@ -102,6 +103,28 @@ export const Calculator = (props) => {
         })
     }
 
+    const inputSizeValueHandler = (e) => {
+        const name = e.target.name
+        const nameObject = name.split("/")[0]
+        const nameMultiply = name.split("/")[1]
+        const multiply = nameMultiply === "low" ? 3 : nameMultiply === "middle" ? 2 : 1
+        const value = +e.target.value
+        let count = 0
+        let o = state.size[nameObject]
+        let some2 = {...o, [nameMultiply]: value * multiply}
+        console.log(some2)
+        setState(state => {
+            let some = state.size[nameObject]
+            for(let key in some2){
+                if(key === "count"){
+                    continue
+                }
+                count += some2[key]
+            }
+            setCountValue(countValue + count)
+            return { ...state, size: { ...state.size, [nameObject]: { ...some, [nameMultiply]: value, count: countValue }}}
+        })
+    }
     const inputConstantsValueHandler = (e) => {
         const name = e.target.name
         const value = e.target.value
@@ -211,7 +234,7 @@ export const Calculator = (props) => {
                                     inputParamsValueHandler={inputParamsValueHandler} />)}
                         />
 
-                        <Route path={`${path}/size`} render={() => (<Size state={state} />)} />
+                        <Route path={`${path}/size`} render={() => (<Size state={state} inputSizeValueHandler={inputSizeValueHandler} />)} />
                     </Switch>
                 </div>
             </div>
