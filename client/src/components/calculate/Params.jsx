@@ -3,23 +3,23 @@ import { Atributes } from './Params/Atributes';
 import { NameAndDescription } from './Params/NameAndDescription';
 import { TypeAndGeneral } from './Params/TypeAndGeneral';
 
-export const Params = ({ params, projectData, constants, valiidationError, inputProjectDataValueHandler, inputParamsValueHandler }) => {
+export const Params = ({ state, valiidationError, inputProjectDataValueHandler, inputConstantsValueHandler, inputAtributesValueHandler, inputParamsValueHandler }) => {
     return (
         <div className='mg-bottom'>
             <NameAndDescription 
-            projectData={projectData} 
+            state={state}
             inputProjectDataValueHandler={inputProjectDataValueHandler} 
             valiidationError={valiidationError}
             />
 
             <TypeAndGeneral 
-            constants={constants} 
-            inputConstantsValueHandler={inputParamsValueHandler}
+            state={state}
+            inputConstantsValueHandler={inputConstantsValueHandler}
             />
 
             <Atributes 
-            inputParamsValueHandler={inputParamsValueHandler} 
-            attributes={params} 
+            inputParamsValueHandler={inputAtributesValueHandler} 
+            state={state}
             />
         </div>
     );
