@@ -3,8 +3,8 @@ import React from 'react';
 export const ResultModal = (props) => {
     const {
         Size,
-        Tn, Tmin, Tmax,
-        Dn, Dmin, Dmax,
+        Tn,
+        Dn,
         Cn,
         saveResult,
         changeShowModal,
@@ -31,24 +31,8 @@ export const ResultModal = (props) => {
                             <td id="resTn">{Tn}</td>
                         </tr>
                         <tr>
-                            <td>Оптимистическая</td>
-                            <td id="resTmin">{Tmin}</td>
-                        </tr>
-                        <tr>
-                            <td>Пессимистичесткая</td>
-                            <td id="resTmax">{Tmax}</td>
-                        </tr>
-                        <tr>
                             <td>Длительность</td>
                             <td id="resDn">{Dn}</td>
-                        </tr>
-                        <tr>
-                            <td>Оптимистическая</td>
-                            <td id="resDmin">{Dmin}</td>
-                        </tr>
-                        <tr>
-                            <td>Пессимистичесткая</td>
-                            <td id="resDmax">{Dmax}</td>
                         </tr>
                         <tr>
                             <td>Стоимость</td>

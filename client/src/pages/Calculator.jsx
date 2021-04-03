@@ -70,11 +70,7 @@ export const Calculator = (props) => {
                 },
                 other: {
                     Tn: 0,
-                    Tmin: 0,
-                    Tmax: 0,
                     Dn: 0,
-                    Dmin: 0,
-                    Dmax: 0,
                     Cn: 0
                 }
             }

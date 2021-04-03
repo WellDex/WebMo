@@ -70,11 +70,7 @@ const schema = new Schema({
         },
         other: {
             Tn: { type: Number, default: null },
-            Tmin: { type: Number, default: null },
-            Tmax: { type: Number, default: null },
             Dn: { type: Number, default: null },
-            Dmin: { type: Number, default: null },
-            Dmax: { type: Number, default: null },
             Cn: { type: Number, default: null },
         },
     },
