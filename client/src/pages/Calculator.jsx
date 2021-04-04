@@ -79,13 +79,11 @@ export const Calculator = (props) => {
 
     const [state, setState] = useState(paramsForState)
 
-    const { path, url } = useRouteMatch()
+    useEffect(() => {
+        console.log(state.result.size)
+    },[state.result.size])
 
-    const [resultFormula, setResultFormula] = useState({
-        size: 0,
-        Tn: 0,
-        Dn: 0
-    })
+    const { path, url } = useRouteMatch()
 
     useEffect(() => {
         message(error);
@@ -176,47 +174,26 @@ export const Calculator = (props) => {
     
 
     const calculateFormula = () => {
-
         let Dn = 0
         let Tn = 0
         let CDI = 0
-        let size = 0
+        let sizeWebObject = 0
         for(let key in state.size){
             if(key === "ModelSize" || key === "LanguageCoding"){
-                size += 0
+                sizeWebObject += 0
                 continue
             }
-            size += (state.size[key].low + state.size[key].middle + state.size[key].high)
+            sizeWebObject += (state.size[key].low + state.size[key].middle + state.size[key].high)
         }
         for(let key in state.params){
             CDI += state.params[key]
         }
 
-        Tn = state.A * CDI * size * state.P1
+        Tn = state.A * CDI * sizeWebObject * state.P1
         Dn = state.B * Tn * state.P2
         
-        setResultFormula(resultFormula => ({...resultFormula, size: size, Tn: Tn, Dn: Dn}))
-        console.log(resultFormula)
-        changeShowModal()
-
-
-        /*switch (name) {
-            case 'Tn': {
-
-            }
-            case 'Tmin': { }
-            case 'Tmax': { }
-            case 'Dn': {
-                const res = state.B *
-                    setState(state => {
-                        return { ...state, params: { ...state.params, [name]: +value } }
-                    })
-            }
-            case 'Dmin': { }
-            case 'Dmax': { }
-            case 'Cn': { }
-            case 'CDI': { }
-        }*/
+        setState(state => ({...state, result: {...state.result, size: {sizeWebObject, countStringCode: 0}}}))
+        setState(state => ({...state, result: {...state.result, other: {Tn, Dn}}}))
     }
 
     const saveResult = async (e) => {
@@ -276,10 +253,10 @@ export const Calculator = (props) => {
                 </div>
             </div>
             <div className='txt-al-center mg-top mg-bottom'>
-                <a className="waves-effect waves-light btn-small" onClick={changeShowModal}>Рассчитать проект</a>
+                <a className="waves-effect waves-light btn-small" onClick={() => {calculateFormula(); changeShowModal();}}>Рассчитать проект</a>
             </div>
             {
-                showModal && <ResultModal changeShowModal={changeShowModal} saveResult={saveResult} result={resultFormula} />
+                showModal && <ResultModal changeShowModal={changeShowModal} saveResult={state._id ? updateProject : saveResult} result={state.result} />
             }
         </div>
     );

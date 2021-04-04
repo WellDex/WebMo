@@ -22,15 +22,15 @@ export const ResultModal = (props) => {
                     <tbody>
                         <tr>
                             <td>Размер</td>
-                            <td id="resSize">{result.size.toFixed(2)}</td>
+                            <td id="resSize">{result.size.sizeWebObject.toFixed(2)}</td>
                         </tr>
                         <tr>
                             <td>Трудоемкость</td>
-                            <td id="resTn">{result.Tn.toFixed(2)}</td>
+                            <td id="resTn">{result.other.Tn.toFixed(2)}</td>
                         </tr>
                         <tr>
                             <td>Длительность</td>
-                            <td id="resDn">{result.Dn.toFixed(2)}</td>
+                            <td id="resDn">{result.other.Dn.toFixed(2)}</td>
                         </tr>
                         <tr>
                             <td>Стоимость</td>
