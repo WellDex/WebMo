@@ -64,7 +64,6 @@ export const Calculator = (props) => {
                 },
                 size: {
                     sizeWebObject: 0,
-                    countStringCode: 0
                 },
                 other: {
                     Tn: 0,
@@ -186,7 +185,7 @@ export const Calculator = (props) => {
         Tn = state.A * CDI * sizeWebObject * state.P1
         Dn = state.B * Tn * state.P2
         
-        setState(state => ({...state, result: {...state.result, size: {sizeWebObject, countStringCode: 0}}}))
+        setState(state => ({...state, result: {...state.result, size: {sizeWebObject}}}))
         setState(state => ({...state, result: {...state.result, other: {Tn, Dn}}}))
     }
 

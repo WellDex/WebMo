@@ -64,7 +64,6 @@ const schema = new Schema({
         },
         size: {
             sizeWebObject: { type: Number, default: null },
-            countStringCode: { type: Number, default: null },
         },
         other: {
             Tn: { type: Number, default: null },
