@@ -5,16 +5,6 @@ export const TypeAndGeneral = ({ state, inputConstantsValueHandler }) => {
 
     return (
         <Form>
-            <Form.Group>
-                <Form.Label>Тип проекта:</Form.Label>
-                <Form.Control as="select" size="sm" custom>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
-                </Form.Control>
-            </Form.Group>
             <Form.Label>Общие параметры:</Form.Label>
             <Form.Group>
                 <Form.Label>A:</Form.Label>

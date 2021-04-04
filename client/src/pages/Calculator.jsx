@@ -29,13 +29,12 @@ export const Calculator = (props) => {
         } catch (e) { };
     }
 
-    if (!!projectId) {
+    if (!!+projectId) {
         getProject(+projectId);
     } else {
         paramsForState = {
             projectName: '',
             description: '',
-            projectType: '',
             A: 2.0,
             B: 1.5,
             P1: 1.00,
@@ -52,7 +51,6 @@ export const Calculator = (props) => {
                 PEFF: 1.36,
             },
             size: {
-                ModelSize: null,
                 LanguageCoding: null,
                 VnytrLogOb: { low: 0, middle: 0, high: 0, count: 0 },
                 VneshInterface: { low: 0, middle: 0, high: 0, count: 0 },

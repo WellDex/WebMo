@@ -10,7 +10,6 @@ const time = `${dd}/${mm}/${yyyy}`;
 const schema = new Schema({
     projectName: { type: String, required: true },
     description: { type: String },
-    projectType: { type: String, required: true },
     A: { type: Number, default: 2.0 },
     B: { type: Number, default: 1.5 },
     P1: { type: Number, default: 1.00 },
@@ -27,7 +26,6 @@ const schema = new Schema({
         PEFF: { type: Number, default: null },
     },
     size: {
-        ModelSize: { type: Number, default: null },
         LanguageCoding: { type: String, default: null },
         VnytrLogOb: {
             low: { type: Number, default: null },
