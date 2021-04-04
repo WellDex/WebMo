@@ -78,9 +78,14 @@ export const Calculator = (props) => {
     }
 
     const [state, setState] = useState(paramsForState)
-    const [countValue, setCountValue] = useState(0)
 
     const { path, url } = useRouteMatch()
+
+    const [resultFormula, setResultFormula] = useState({
+        size: 0,
+        Tn: 0,
+        Dn: 0
+    })
 
     useEffect(() => {
         message(error);
@@ -103,26 +108,29 @@ export const Calculator = (props) => {
         })
     }
 
+    const inputModelDataValueHandler = (e) => {
+        const name = e.target.name
+        const value = e.target.value
+        const type = e.target.type
+
+        if(type === 'select-one'){
+            setState(state => ({...state, size: {...state.size, [name]: value}}))
+        }
+        setState(state => ({...state, result: {...state.result, size: {...state.result.size, [name]: +value}}}))
+    }
+
     const inputSizeValueHandler = (e) => {
         const name = e.target.name
         const nameObject = name.split("/")[0]
         const nameMultiply = name.split("/")[1]
         const multiply = nameMultiply === "low" ? 3 : nameMultiply === "middle" ? 2 : 1
         const value = +e.target.value
-        let count = 0
-        let o = state.size[nameObject]
-        let some2 = {...o, [nameMultiply]: value * multiply}
-        console.log(some2)
+
         setState(state => {
             let some = state.size[nameObject]
-            for(let key in some2){
-                if(key === "count"){
-                    continue
-                }
-                count += some2[key]
-            }
-            setCountValue(countValue + count)
-            return { ...state, size: { ...state.size, [nameObject]: { ...some, [nameMultiply]: value, count: countValue }}}
+
+            const returnObject = { ...state, size: { ...state.size, [nameObject]: { ...some, [nameMultiply]: value * multiply, count: 0}}}
+            return returnObject
         })
     }
     const inputConstantsValueHandler = (e) => {
@@ -165,12 +173,34 @@ export const Calculator = (props) => {
         message(error)
         clearError()
     }, [error, message, clearError])
+    
 
-    const calculateFormula = (e) => {
-        const name = e.target.name
-        const value = e.target.value
+    const calculateFormula = () => {
 
-        switch (name) {
+        let Dn = 0
+        let Tn = 0
+        let CDI = 0
+        let size = 0
+        for(let key in state.size){
+            if(key === "ModelSize" || key === "LanguageCoding"){
+                size += 0
+                continue
+            }
+            size += (state.size[key].low + state.size[key].middle + state.size[key].high)
+        }
+        for(let key in state.params){
+            CDI += state.params[key]
+        }
+
+        Tn = state.A * CDI * size * state.P1
+        Dn = state.B * Tn * state.P2
+        
+        setResultFormula(resultFormula => ({...resultFormula, size: size, Tn: Tn, Dn: Dn}))
+        console.log(resultFormula)
+        changeShowModal()
+
+
+        /*switch (name) {
             case 'Tn': {
 
             }
@@ -186,7 +216,7 @@ export const Calculator = (props) => {
             case 'Dmax': { }
             case 'Cn': { }
             case 'CDI': { }
-        }
+        }*/
     }
 
     const saveResult = async (e) => {
@@ -234,7 +264,14 @@ export const Calculator = (props) => {
                                     inputParamsValueHandler={inputParamsValueHandler} />)}
                         />
 
-                        <Route path={`${path}/size`} render={() => (<Size state={state} inputSizeValueHandler={inputSizeValueHandler} />)} />
+                        <Route path={`${path}/size`} render={() => (
+                        <Size 
+                        state={state} 
+                        inputSizeValueHandler={inputSizeValueHandler}
+                        inputModelDataValueHandler={inputModelDataValueHandler} 
+                        calculateFormula={calculateFormula}
+                        />)} 
+                        />
                     </Switch>
                 </div>
             </div>
@@ -242,7 +279,7 @@ export const Calculator = (props) => {
                 <a className="waves-effect waves-light btn-small" onClick={changeShowModal}>Рассчитать проект</a>
             </div>
             {
-                showModal && <ResultModal changeShowModal={changeShowModal} saveResult={saveResult} />
+                showModal && <ResultModal changeShowModal={changeShowModal} saveResult={saveResult} result={resultFormula} />
             }
         </div>
     );

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
 
-export const ResultSize = ({ projectFormulaData }) => {
+export const ResultSize = ({ projectFormulaData, inputModelDataValueHandler }) => {
 
     const { sizeWebObject, countStringCode } = projectFormulaData.result.size
 
@@ -9,11 +9,11 @@ export const ResultSize = ({ projectFormulaData }) => {
         <div className='mg-top'>
             <div className='dflex-sb'>
                 <span>Размер WEB Objects:</span>
-                <input value={sizeWebObject} type='text'/>
+                <input value={sizeWebObject} onChange={inputModelDataValueHandler} type='number' name="sizeWebObject"/>
             </div>
             <div className='dflex-sb'>
                 <span>В условных строчках кода:</span>
-                <input value={countStringCode} type='text' />
+                <input value={countStringCode} onChange={inputModelDataValueHandler} type='number' name="countStringCode"/>
             </div>
         </div>
     );
