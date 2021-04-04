@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { Redirect } from 'react-router';
+import { useHistory } from 'react-router';
 import { Preloader } from '../components/common/Preloader';
 import { Project } from '../components/listProjects/Project';
 import { AuthContext } from '../context/AuthContext';
@@ -9,12 +9,13 @@ import { useMessage } from '../hooks/messageHook';
 export const ListProjects = (props) => {
     const { token } = useContext(AuthContext);
     const message = useMessage();
+    const history = useHistory();
     const { loading, error, req, clearError } = useRequest();
     const [projects, setProjects] = useState([]);
 
     const getProjects = useCallback(async () => {
         try {
-            const data = await req('/progect/all', 'GET', null, {
+            const data = await req('/project/all', 'GET', null, {
                 Authorization: `Bearer ${token}`,
             });
 
@@ -31,11 +32,13 @@ export const ListProjects = (props) => {
         clearError();
     }, [error, message, clearError]);
 
-    const openProject = (id) => <Redirect to={`/calculator/${id}`} />;
+    const openProject = (id) => {
+        history.push(`/calculator/${id}/params`)
+    };
 
     const deleteProjectHandler = async (id) => {
         try {
-            const data = await req('/api/project/delete', 'DELETE', { id }, {
+            const data = await req('/project/delete', 'DELETE', { id }, {
                 Authorization: `Bearer ${token}`,
             });
 

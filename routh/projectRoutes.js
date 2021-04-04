@@ -27,13 +27,13 @@ router.post(
 
             const { name } = req.body;
 
-            const cand = await Todo.findOne({ name });
+            const cand = await Project.findOne({ name });
 
             if (cand) {
                 return res.json({ project: cand })
             }
 
-            const project = new Project(...req.body);
+            const project = new Project({ ...req.body, owner: req.user.userId });
 
             await project.save();
 
@@ -74,12 +74,15 @@ router.get('/',
 router.get('/all', auth, async (req, res) => {
     try {
         const id = req.body.id || req.user.userId;
+
         const projects = await Project.find({ owner: id });
 
         const newProject = projects.map(el => {
-            id: el._id
-            name: el.projectName
-            createTime: el.createTime
+            return {
+                id: el._id,
+                name: el.projectName,
+                createTime: el.createTime,
+            }
         });
 
         res.json(newProject);

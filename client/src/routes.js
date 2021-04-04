@@ -5,7 +5,7 @@ import { Calculator } from "./pages/Calculator";
 import { ListProjects } from "./pages/ListProjects";
 
 export const useRoutes = (isAuth) => {
-    if (!isAuth) {
+    if (isAuth) {
         return (
             <Switch>
                 <Route path='/listProjects' component={() => (<ListProjects/>)}/>

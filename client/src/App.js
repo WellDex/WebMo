@@ -19,7 +19,7 @@ export const App = () => {
     return (
         <AuthContext.Provider value={{ token, userId, login, logout, isAuth, email }}>
             <BrowserRouter>
-                {!isAuth && <Header />}
+                {isAuth && <Header />}
                 {routes}
             </BrowserRouter>
         </AuthContext.Provider>

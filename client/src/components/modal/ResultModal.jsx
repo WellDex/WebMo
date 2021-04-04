@@ -7,7 +7,6 @@ export const ResultModal = (props) => {
         changeShowModal,
     } = props;
 
-    console.log(props)
     return (
         <div className='shadow'>
             <div className='show-modal'>
