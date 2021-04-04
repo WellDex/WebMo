@@ -176,7 +176,6 @@ export const Calculator = (props) => {
     
 
     const calculateFormula = () => {
-
         let Dn = 0
         let Tn = 0
         let CDI = 0
@@ -198,25 +197,6 @@ export const Calculator = (props) => {
         setResultFormula(resultFormula => ({...resultFormula, size: size, Tn: Tn, Dn: Dn}))
         console.log(resultFormula)
         changeShowModal()
-
-
-        /*switch (name) {
-            case 'Tn': {
-
-            }
-            case 'Tmin': { }
-            case 'Tmax': { }
-            case 'Dn': {
-                const res = state.B *
-                    setState(state => {
-                        return { ...state, params: { ...state.params, [name]: +value } }
-                    })
-            }
-            case 'Dmin': { }
-            case 'Dmax': { }
-            case 'Cn': { }
-            case 'CDI': { }
-        }*/
     }
 
     const saveResult = async (e) => {
@@ -279,7 +259,7 @@ export const Calculator = (props) => {
                 <a className="waves-effect waves-light btn-small" onClick={changeShowModal}>Рассчитать проект</a>
             </div>
             {
-                showModal && <ResultModal changeShowModal={changeShowModal} saveResult={saveResult} result={resultFormula} />
+                showModal && <ResultModal changeShowModal={changeShowModal} saveResult={state._id ? updateProject : saveResult} result={resultFormula} />
             }
         </div>
     );
