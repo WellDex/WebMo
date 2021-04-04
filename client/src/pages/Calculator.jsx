@@ -29,7 +29,7 @@ export const Calculator = (props) => {
         } catch (e) { };
     }
 
-    if (!!projectId && false) {
+    if (!!projectId) {
         getProject(+projectId);
     } else {
         paramsForState = {
@@ -78,10 +78,6 @@ export const Calculator = (props) => {
     }
 
     const [state, setState] = useState(paramsForState)
-
-    useEffect(() => {
-        console.log(state.result.size)
-    },[state.result.size])
 
     const { path, url } = useRouteMatch()
 
