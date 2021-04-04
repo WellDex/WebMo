@@ -46,7 +46,7 @@ router.post(
 )
 
 //  /project/
-router.get('/',
+router.post('/',
     auth,
     [
         check('id', 'Отсутствует id проекта').isLength({ min: 1 }),
@@ -61,6 +61,8 @@ router.get('/',
                     message: 'Некорректные данные проекта'
                 })
             }
+
+            const {id} = req.body;
 
             const project = await Project.findById(id);
 

@@ -14,67 +14,64 @@ export const Calculator = (props) => {
     const message = useMessage();
     const { loading, error, req, clearError } = useRequest();
     const [showModal, setShowModal] = useState(false);
+    const [state, setState] = useState({
+        projectName: '',
+        description: '',
+        A: 2.0,
+        B: 1.5,
+        P1: 1.00,
+        P2: 0.33,
+        params: {
+            CPLX: 0.63,
+            PDIF: 0.75,
+            PERS: 1.55,
+            PREX: 1.35,
+            FCIL: 1.36,
+            SCED: 1.35,
+            RUSE: 1.00,
+            TEAM: 1.45,
+            PEFF: 1.36,
+        },
+        size: {
+            LanguageCoding: null,
+            VnytrLogOb: { low: 0, middle: 0, high: 0, count: 0 },
+            VneshInterface: { low: 0, middle: 0, high: 0, count: 0 },
+            VneshVvod: { low: 0, middle: 0, high: 0, count: 0 },
+            VneshVuvod: { low: 0, middle: 0, high: 0, count: 0 },
+            VneshZapros: { low: 0, middle: 0, high: 0, count: 0 },
+        },
+        result: {
+            common: {
+                CDI: null,
+            },
+            size: {
+                sizeWebObject: 0,
+            },
+            other: {
+                Tn: 0,
+                Dn: 0,
+                Cn: 0
+            }
+        }
+    });
 
     const [valiidationError, setValidationError] = useState(false)
 
-    let paramsForState = {};
-
     const getProject = async (id) => {
         try {
-            const data = await req('/progect/', 'GET', { id }, {
+            console.log(id)
+            const data = await req('/project/', 'POST', { id }, {
                 Authorization: `Bearer ${auth.token}`,
             });
 
-            paramsForState = data;
-        } catch (e) { };
+            setState(data);
+        } catch (e) { console.log(e) };
     }
 
-    if (!!+projectId) {
-        getProject(+projectId);
-    } else {
-        paramsForState = {
-            projectName: '',
-            description: '',
-            A: 2.0,
-            B: 1.5,
-            P1: 1.00,
-            P2: 0.33,
-            params: {
-                CPLX: 0.63,
-                PDIF: 0.75,
-                PERS: 1.55,
-                PREX: 1.35,
-                FCIL: 1.36,
-                SCED: 1.35,
-                RUSE: 1.00,
-                TEAM: 1.45,
-                PEFF: 1.36,
-            },
-            size: {
-                LanguageCoding: null,
-                VnytrLogOb: { low: 0, middle: 0, high: 0, count: 0 },
-                VneshInterface: { low: 0, middle: 0, high: 0, count: 0 },
-                VneshVvod: { low: 0, middle: 0, high: 0, count: 0 },
-                VneshVuvod: { low: 0, middle: 0, high: 0, count: 0 },
-                VneshZapros: { low: 0, middle: 0, high: 0, count: 0 },
-            },
-            result: {
-                common: {
-                    CDI: null,
-                },
-                size: {
-                    sizeWebObject: 0,
-                },
-                other: {
-                    Tn: 0,
-                    Dn: 0,
-                    Cn: 0
-                }
-            }
-        }
-    }
-
-    const [state, setState] = useState(paramsForState)
+    useEffect(() => {
+        console.log(projectId)
+        if(projectId !== 'params') getProject(projectId);
+    }, [projectId]);
 
     const { path, url } = useRouteMatch()
 
@@ -104,10 +101,10 @@ export const Calculator = (props) => {
         const value = e.target.value
         const type = e.target.type
 
-        if(type === 'select-one'){
-            setState(state => ({...state, size: {...state.size, [name]: value}}))
+        if (type === 'select-one') {
+            setState(state => ({ ...state, size: { ...state.size, [name]: value } }))
         }
-        setState(state => ({...state, result: {...state.result, size: {...state.result.size, [name]: +value}}}))
+        setState(state => ({ ...state, result: { ...state.result, size: { ...state.result.size, [name]: +value } } }))
     }
 
     const inputSizeValueHandler = (e) => {
@@ -120,7 +117,7 @@ export const Calculator = (props) => {
         setState(state => {
             let some = state.size[nameObject]
 
-            const returnObject = { ...state, size: { ...state.size, [nameObject]: { ...some, [nameMultiply]: value * multiply, count: 0}}}
+            const returnObject = { ...state, size: { ...state.size, [nameObject]: { ...some, [nameMultiply]: value * multiply, count: 0 } } }
             return returnObject
         })
     }
@@ -164,29 +161,29 @@ export const Calculator = (props) => {
         message(error)
         clearError()
     }, [error, message, clearError])
-    
+
 
     const calculateFormula = () => {
         let Dn = 0
         let Tn = 0
         let CDI = 0
         let sizeWebObject = 0
-        for(let key in state.size){
-            if(key === "ModelSize" || key === "LanguageCoding"){
+        for (let key in state.size) {
+            if (key === "ModelSize" || key === "LanguageCoding") {
                 sizeWebObject += 0
                 continue
             }
             sizeWebObject += (state.size[key].low + state.size[key].middle + state.size[key].high)
         }
-        for(let key in state.params){
+        for (let key in state.params) {
             CDI += state.params[key]
         }
 
         Tn = state.A * CDI * sizeWebObject * state.P1
         Dn = state.B * Tn * state.P2
-        
-        setState(state => ({...state, result: {...state.result, size: {sizeWebObject}}}))
-        setState(state => ({...state, result: {...state.result, other: {Tn, Dn}}}))
+
+        setState(state => ({ ...state, result: { ...state.result, size: { sizeWebObject } } }))
+        setState(state => ({ ...state, result: { ...state.result, other: { Tn, Dn } } }))
     }
 
     const saveResult = async (e) => {
@@ -235,18 +232,18 @@ export const Calculator = (props) => {
                         />
 
                         <Route path={`${path}/size`} render={() => (
-                        <Size 
-                        state={state} 
-                        inputSizeValueHandler={inputSizeValueHandler}
-                        inputModelDataValueHandler={inputModelDataValueHandler} 
-                        calculateFormula={calculateFormula}
-                        />)} 
+                            <Size
+                                state={state}
+                                inputSizeValueHandler={inputSizeValueHandler}
+                                inputModelDataValueHandler={inputModelDataValueHandler}
+                                calculateFormula={calculateFormula}
+                            />)}
                         />
                     </Switch>
                 </div>
             </div>
             <div className='txt-al-center mg-top mg-bottom'>
-                <a className="waves-effect waves-light btn-small" onClick={() => {calculateFormula(); changeShowModal();}}>Рассчитать проект</a>
+                <a className="waves-effect waves-light btn-small" onClick={() => { calculateFormula(); changeShowModal(); }}>Рассчитать проект</a>
             </div>
             {
                 showModal && <ResultModal changeShowModal={changeShowModal} saveResult={state._id ? updateProject : saveResult} result={state.result} />

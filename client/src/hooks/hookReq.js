@@ -6,6 +6,7 @@ export const useRequest = () => {
 
     const req = useCallback(async (url, method = 'GET', body = null, headers = {}) => {
         setLoading(true);
+        debugger;
         try {
             if (body) {
                 body = JSON.stringify(body);
