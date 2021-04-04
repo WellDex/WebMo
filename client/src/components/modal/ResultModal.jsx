@@ -2,14 +2,12 @@ import React from 'react';
 
 export const ResultModal = (props) => {
     const {
-        Size,
-        Tn,
-        Dn,
-        Cn,
+        result,
         saveResult,
         changeShowModal,
     } = props;
 
+    console.log(props)
     return (
         <div className='shadow'>
             <div className='show-modal'>
@@ -24,19 +22,19 @@ export const ResultModal = (props) => {
                     <tbody>
                         <tr>
                             <td>Размер</td>
-                            <td id="resSize">{Size}</td>
+                            <td id="resSize">{result.size.toFixed(2)}</td>
                         </tr>
                         <tr>
                             <td>Трудоемкость</td>
-                            <td id="resTn">{Tn}</td>
+                            <td id="resTn">{result.Tn.toFixed(2)}</td>
                         </tr>
                         <tr>
                             <td>Длительность</td>
-                            <td id="resDn">{Dn}</td>
+                            <td id="resDn">{result.Dn.toFixed(2)}</td>
                         </tr>
                         <tr>
                             <td>Стоимость</td>
-                            <td id="resCn">{Cn}</td>
+                            <td id="resCn">{"Cn"}</td>
                         </tr>
                     </tbody>
                 </table>
