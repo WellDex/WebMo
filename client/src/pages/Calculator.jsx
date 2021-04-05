@@ -112,7 +112,7 @@ export const Calculator = (props) => {
         const nameObject = name.split("/")[0]
         const nameMultiply = name.split("/")[1]
         const multiply = nameMultiply === "low" ? 3 : nameMultiply === "middle" ? 2 : 1
-        const value = +e.target.value
+        const value = +e.target.value < 0 ? 0 : +e.target.value
 
         setState(state => {
             let some = state.size[nameObject]
@@ -123,16 +123,16 @@ export const Calculator = (props) => {
     }
     const inputConstantsValueHandler = (e) => {
         const name = e.target.name
-        const value = e.target.value
+        const value = +e.target.value < 0 ? 0 : +e.target.value
 
         setState(state => {
-            return { ...state, [name]: +value }
+            return { ...state, [name]: value }
         })
     }
 
     const inputAtributesValueHandler = (e) => {
         const name = e.target.name
-        const value = e.target.value
+        const value = +e.target.value
 
         setState(state => {
             return { ...state, params: { ...state.params, [name]: +value } }
@@ -167,6 +167,7 @@ export const Calculator = (props) => {
         let Dn = 0
         let Tn = 0
         let CDI = 0
+        let Cn = 0
         let sizeWebObject = 0
         for (let key in state.size) {
             if (key === "ModelSize" || key === "LanguageCoding") {
@@ -181,9 +182,10 @@ export const Calculator = (props) => {
 
         Tn = state.A * CDI * sizeWebObject * state.P1
         Dn = state.B * Tn * state.P2
+        Cn = Tn / Dn
 
         setState(state => ({ ...state, result: { ...state.result, size: { sizeWebObject } } }))
-        setState(state => ({ ...state, result: { ...state.result, other: { Tn, Dn } } }))
+        setState(state => ({ ...state, result: { ...state.result, other: { Tn, Dn, Cn } } }))
     }
 
     const saveResult = async (e) => {
