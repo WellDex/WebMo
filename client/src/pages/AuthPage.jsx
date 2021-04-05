@@ -41,7 +41,7 @@ export const AuthPage = (props) => {
 
     return (
         <div className="row">
-            <div className="col s6 offset-s3">
+            <div className="col s2 offset-s5">
                 <h1 className="txt-al-center">WebMo</h1>
                 <Switch>
                     <Route path="/login">

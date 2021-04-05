@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useContext } from 'react';
-import { Link, Route, Switch, useRouteMatch } from 'react-router-dom';
+import { Link, Route, Switch, useHistory, useRouteMatch } from 'react-router-dom';
 import { Params } from '../components/calculate/Params';
 import { Size } from '../components/calculate/Size';
 import { useRequest } from "../hooks//hookReq";
@@ -10,6 +10,7 @@ import { Preloader } from '../components/common/Preloader';
 
 export const Calculator = (props) => {
     const projectId = props.match.params.id;
+    const history = useHistory();
     const auth = useContext(AuthContext);
     const message = useMessage();
     const { loading, error, req, clearError } = useRequest();
@@ -70,7 +71,7 @@ export const Calculator = (props) => {
 
     useEffect(() => {
         console.log(projectId)
-        if(projectId !== 'params') getProject(projectId);
+        if (projectId !== 'params') getProject(projectId);
     }, [projectId]);
 
     const { path, url } = useRouteMatch()
@@ -191,6 +192,7 @@ export const Calculator = (props) => {
     const saveResult = async (e) => {
         try {
             await req('/project/create', 'POST', { ...state }, { Authorization: `Baerer ${auth.token}` })
+            history.push('/listProjects')
         } catch (e) { };
     }
 
@@ -201,6 +203,8 @@ export const Calculator = (props) => {
             })
 
             message(data.message)
+
+            history.push('/listProjects')
         } catch (e) { };
     }
 

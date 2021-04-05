@@ -10,7 +10,7 @@ router.post(
     auth,
     [
         check('projectName', 'Максимальное количество символов - 100')
-            .isLength({ max: 60 }).isString(),
+            .isLength({ max: 60, min: 1 }).isString(),
         check('description', 'Максимальное количество символов - 250')
             .isLength({ max: 120 }).isString(),
     ],
@@ -25,9 +25,9 @@ router.post(
                 });
             }
 
-            const { name } = req.body;
+            const { projectName } = req.body;
 
-            const cand = await Project.findOne({ name });
+            const cand = await Project.findOne({ projectName });
 
             if (cand) {
                 return res.json({ project: cand })
@@ -98,7 +98,9 @@ router.post(
     '/update',
     auth,
     [
-        check('id', 'Отсутствует id проекта').isLength({ min: 1 }),
+        check('_id', 'Отсутствует id проекта').isLength({ min: 1 }),
+        check('projectName', 'Максимальное количество символов - 100')
+            .isLength({ max: 60, min: 1 }).isString(),
     ],
     async (req, res) => {
         try {
@@ -111,7 +113,7 @@ router.post(
                 })
             }
 
-            const project = await Project.findById(id);
+            const project = await Project.findById(req.body._id);
 
             project.projectName = req.body.projectName;
             project.description = req.body.description;

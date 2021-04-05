@@ -1,11 +1,14 @@
 const { Schema, model, Types } = require('mongoose');
 
 const now = new Date();
-const dd = now.getDate();
-const mm = now.getMonth() + 1;
+let dd = now.getDate();
+let mm = now.getMonth() + 1;
 const yyyy = now.getFullYear();
 
-const time = `${dd}/${mm}/${yyyy}`;
+if (dd < 10) dd = `0${dd}`;
+if (mm < 10) mm = `0${mm}`;
+
+const time = `${dd} ${mm} ${yyyy}`;
 
 const schema = new Schema({
     projectName: { type: String, required: true },
