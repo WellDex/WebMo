@@ -32,8 +32,8 @@ export const ResultModal = (props) => {
                             <td id="resDn">{result.other.Dn.toFixed(2)}</td>
                         </tr>
                         <tr>
-                            <td>Стоимость</td>
-                            <td id="resCn">{"Cn"}</td>
+                            <td>Работники</td>
+                            <td id="resCn">{result.other.Cn.toFixed(2)}</td>
                         </tr>
                     </tbody>
                 </table>
