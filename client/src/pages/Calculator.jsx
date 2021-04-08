@@ -184,6 +184,9 @@ export const Calculator = (props) => {
         Tn = state.A * CDI * sizeWebObject * state.P1
         Dn = state.B * Tn * state.P2
         Cn = Tn / Dn
+        if(Tn === 0 || Dn === 0){
+            Cn = 0
+        }
 
         setState(state => ({ ...state, result: { ...state.result, size: { sizeWebObject } } }))
         setState(state => ({ ...state, result: { ...state.result, other: { Tn, Dn, Cn } } }))
