@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 
 export const TypeAndGeneral = ({ state, inputConstantsValueHandler }) => {
 
@@ -19,3 +20,8 @@ export const TypeAndGeneral = ({ state, inputConstantsValueHandler }) => {
         </Form>
     );
 };
+
+TypeAndGeneral.propTypes = {
+    state: PropTypes.object,
+    inputConstantsValueHandler: PropTypes.func,
+}

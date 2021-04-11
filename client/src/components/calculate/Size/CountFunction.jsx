@@ -1,5 +1,6 @@
 import React from 'react';
 import { Table } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 
 export const CountFunction = ({ projectFormulaData, inputSizeValueHandler }) => {
     const { VnytrLogOb, VneshInterface, VneshVvod, VneshVuvod, VneshZapros } = projectFormulaData.size
@@ -55,3 +56,8 @@ export const CountFunction = ({ projectFormulaData, inputSizeValueHandler }) => 
         </Table>
     );
 };
+
+CountFunction.propTypes = {
+    projectFormulaData: PropTypes.object,
+    inputSizeValueHandler: PropTypes.func,
+}
