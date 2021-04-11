@@ -18,7 +18,7 @@ server.use('/project', require('./routh/projectRoutes'));
 
 if (process.env.NODE_ENV === 'production') {
     server.use(express.static('client/build'));
-}
+} 
 
 server.get('/', () => '<h1>Server started!</h1>');
 server.listen(PORT, () => console.log(`Server has been started on port ${PORT}`));

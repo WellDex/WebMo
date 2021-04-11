@@ -1,6 +1,6 @@
 const { Schema, model, Types } = require('mongoose');
 
-const now = new Date();
+const now = new Date(); 
 let dd = now.getDate();
 let mm = now.getMonth() + 1;
 const yyyy = now.getFullYear();

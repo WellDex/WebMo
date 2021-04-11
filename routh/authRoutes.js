@@ -7,7 +7,7 @@ const User = require('../modules/User');
 const router = Router();
 
 //  /auth/register
-router.post(
+router.post( 
     '/register',
     [
         check('name', 'Минимальное количество 4 символа').isLength({ min: 4, max: 24 }),
