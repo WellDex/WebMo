@@ -60,7 +60,6 @@ export const Calculator = (props) => {
 
     const getProject = async (id) => {
         try {
-            console.log(id)
             const data = await req('/project/', 'POST', { id }, {
                 Authorization: `Bearer ${auth.token}`,
             });
@@ -70,7 +69,6 @@ export const Calculator = (props) => {
     }
 
     useEffect(() => {
-        console.log(projectId)
         if (projectId !== 'params') getProject(projectId);
     }, [projectId]);
 
@@ -178,7 +176,7 @@ export const Calculator = (props) => {
             sizeWebObject += (state.size[key].low + state.size[key].middle + state.size[key].high)
         }
         for (let key in state.params) {
-            CDI += state.params[key]
+            CDI *= state.params[key]
         }
 
         Tn = state.A * CDI * sizeWebObject * state.P1

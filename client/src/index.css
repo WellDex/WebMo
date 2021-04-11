@@ -122,3 +122,36 @@ select{
 .brand-logo{
     cursor: default !important;
 }
+
+.container-about{
+    margin: 0 auto;
+    width: 50%;
+    height: auto;
+}
+
+.container-about > .title{
+    font-size: 30px;
+    border-bottom: 1px solid rgb(128, 128, 128);
+}
+
+.container-about > .text{
+    font-size: 17px;
+}
+
+.container-about > .text-formula{
+    font-size: 17px;
+    padding-left: 8px;
+}
+
+.about-links{
+    color: rgb(55, 149, 216);
+}
+
+.about-links:hover{
+    color: rgb(39, 118, 175);
+}
+
+.formula{
+    background-color: rgb(223, 221, 221);
+    padding: 2px;
+}

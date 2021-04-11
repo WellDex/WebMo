@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 
 export const NameAndDescription = ({ state, inputProjectDataValueHandler, valiidationError }) => {
 
@@ -15,3 +16,9 @@ export const NameAndDescription = ({ state, inputProjectDataValueHandler, valiid
         </Form>
     );
 };
+
+NameAndDescription.propTypes = {
+    state: PropTypes.object,
+    inputProjectDataValueHandler: PropTypes.func,
+    valiidationError: PropTypes.string
+}

@@ -20,6 +20,7 @@ export const Header = (props) => {
                     <ul id="nav-mobile" className="left hide-on-med-and-down">
                         <li><NavLink to="/calculator/params">Калькулятор</NavLink></li>
                         <li><NavLink to="/listProject">Список проектов</NavLink></li>
+                        <li><NavLink to="/about">О нас</NavLink></li>
                     </ul>
                     <ul id="nav-mobile" className="right">
                         <li>

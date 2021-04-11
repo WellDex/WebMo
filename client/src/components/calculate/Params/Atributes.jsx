@@ -1,10 +1,11 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 
 export const Atributes = ({ state, inputParamsValueHandler }) => {
     return (
         <Form>
-            <Form.Label>Тип проекта:</Form.Label>
+            <Form.Label>Атрибуты стоимости:</Form.Label>
             <Form.Group>
                 <Form.Label>Cложность и надежность продукта:</Form.Label>
                 <Form.Control onChange={inputParamsValueHandler} value={state.params.CPLX} as="select" name="CPLX" size="sm" custom>
@@ -96,3 +97,8 @@ export const Atributes = ({ state, inputParamsValueHandler }) => {
         </Form>
     );
 };
+
+Atributes.propTypes = {
+    state: PropTypes.object,
+    inputParamsValueHandler: PropTypes.func
+}

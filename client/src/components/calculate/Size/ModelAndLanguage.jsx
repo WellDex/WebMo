@@ -1,5 +1,6 @@
 import React from 'react';
 import { Form } from 'react-bootstrap';
+import { PropTypes } from 'prop-types';
 
 export const ModelAndLanguage = ({ modelData, inputModelDataValueHandler }) => {
 
@@ -20,3 +21,8 @@ export const ModelAndLanguage = ({ modelData, inputModelDataValueHandler }) => {
         </Form>
     );
 };
+
+ModelAndLanguage.propTypes = {
+    modelData: PropTypes.object,
+    inputModelDataValueHandler: PropTypes.func,
+}
