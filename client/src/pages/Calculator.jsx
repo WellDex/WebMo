@@ -165,7 +165,7 @@ export const Calculator = (props) => {
     const calculateFormula = () => {
         let Dn = 0
         let Tn = 0
-        let CDI = 0
+        let CDI = 1
         let Cn = 0
         let sizeWebObject = 0
         for (let key in state.size) {
